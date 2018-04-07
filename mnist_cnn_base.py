@@ -35,18 +35,17 @@ tf.logging.set_verbosity(tf.logging.INFO)
 from utils import augment
 import matplotlib.pyplot as mpl
 
-iw = 28
-tw = 40
-Kmnist = 11  # max number of classes
 
-def cnn_model_fn(features, labels, mode):
+
+def cnn_model_fn(features, labels, mode,params):
     """Model function for CNN."""
     # Input Layer
     # Reshape X to 4-D tensor: [batch_size, width, height, channels]
     # MNIST images are 28x28 pixels, and have one color channel
     # input_layer = tf.reshape(features["x"], [-1, 28, 28, 1])
-    iw = 28
-    #tw = 40
+    iw = params['iw'] # image width (default, i.e. 28)
+    Kmnist = params['Kmnist'] # Number of classes
+    tw = params['tw'] # Total image width
     if isinstance(features, tf.data.Dataset):
         dataset = features
     else :
@@ -71,7 +70,7 @@ def cnn_model_fn(features, labels, mode):
 
     class_translation_minmax = []
     for k in range(Kmnist):
-        dt = [0, (tw - iw)//2 + 0*iw //3 ]
+        dt = [0, (tw - iw)//2 + iw //3 ]
         if k == Kmnist-1 and Kmnist == 11:
             dt = [(tw + iw) // 2 - iw // 2, (tw  + iw) // 2]
 
@@ -83,10 +82,8 @@ def cnn_model_fn(features, labels, mode):
     if dataset is not None:
         im,la,RTr, arr = sess.run([images,labels, RT, ar])
         for i in range(dw*dw):
-            #aa = sess.run(input_layer)
             mpl.subplot(dw, dw, i+1)
-            a = im[i].squeeze() #.reshape(28, 28)
-
+            a = im[i].squeeze()
             mpl.imshow(a)
             mpl.title("Class: " + str( la[i]) )
 
@@ -147,11 +144,12 @@ def cnn_model_fn(features, labels, mode):
     # Densely connected layer with 1024 neurons
     # Input Tensor Shape: [batch_size, 7 * 7 * 64]
     # Output Tensor Shape: [batch_size, 1024]
-    dense = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu,name="densel1")
+    dense1 = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu,name="densel1")
+    dense2 = tf.layers.dense(inputs=dense1, units=1024, activation=tf.nn.relu, name="densel2")
 
     # Add dropout operation; 0.6 probability that element will be kept
     dropout = tf.layers.dropout(
-        inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
+        inputs=dense2, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
 
     # Logits layer
     # Input Tensor Shape: [batch_size, 1024]
@@ -161,9 +159,9 @@ def cnn_model_fn(features, labels, mode):
     predictions = {
         # Generate predictions (for PREDICT and EVAL mode)
         "classes": tf.argmax(input=logits, axis=1),
-        # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
-        # `logging_hook`.
-        "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
+        ## Add `softmax_tensor` to the graph. It is used for PREDICT and by the
+        ## `logging_hook`.
+        # "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
     }
     if mode == tf.estimator.ModeKeys.PREDICT:
         return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
@@ -188,6 +186,10 @@ def cnn_model_fn(features, labels, mode):
 
 
 def main(unused_argv):
+    iw = 28
+    tw = 40
+    Kmnist = 11  # max number of classes
+
     tf.reset_default_graph()
     print("Loading MNIST dataset...")
     mnist = tf.contrib.learn.datasets.load_dataset("mnist")
@@ -195,6 +197,7 @@ def main(unused_argv):
     train_labels = np.asarray(mnist.train.labels, dtype=np.int32)
     eval_data = mnist.test.images  # Returns np.array
     eval_labels = np.asarray(mnist.test.labels, dtype=np.int32)
+
 
 
     def add_junk(X,y,K) :
@@ -219,11 +222,10 @@ def main(unused_argv):
         print("Done")
 
 
-    # Create the Estimator
 
     mod_base = "tmp/mnist_convnet_K%i_tw%i"%(Kmnist,tw)
     mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir=mod_base)
+        model_fn=cnn_model_fn, model_dir=mod_base,params={'Kclass' : Kmnist, 'iw' : iw, 'tw' : tw})
     print("Done!")
 
     # Set up logging for predictions
@@ -243,7 +245,7 @@ def main(unused_argv):
     print("Running train..")
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=20000,
+        steps=60000,
         hooks=[logging_hook])
     print("Done!")
     # Evaluate the model and print results
