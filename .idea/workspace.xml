@@ -2,31 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58d10001-82e3-41f9-89ef-bb3f3d5416da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/mnist_cnn_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_cnn_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/eval/events.out.tfevents.1523084763.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523078818.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523078953.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523079163.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523080188.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523080401.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523122523.COMP-NBTUHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/graph.pbtxt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-10946.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-10946.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-10946.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-13603.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-13603.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-13603.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-16351.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-16351.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-16351.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-19211.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-19211.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-19211.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-20001.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-20001.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-20001.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="logdir/" />
     <ignored path="MNIST-data/" />
@@ -73,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mnist_cnn_base.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mnist_cnn_base.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="232" column="25" selection-start-line="232" selection-start-column="25" selection-end-line="232" selection-end-column="25" />
+            <state relative-caret-position="72">
+              <caret line="226" column="46" lean-forward="true" selection-start-line="226" selection-start-column="46" selection-end-line="226" selection-end-column="46" />
               <folding>
                 <element signature="e#696#734#0" expanded="true" />
               </folding>
@@ -88,17 +65,17 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+            <state relative-caret-position="336">
+              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+              <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -184,10 +161,10 @@
         <option value="$PROJECT_DIR$/thmatlab.py" />
         <option value="$PROJECT_DIR$/matmem.py" />
         <option value="$PROJECT_DIR$/generate_data.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/mnist_cnn_base.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -742,13 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
@@ -771,18 +741,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        <state relative-caret-position="336">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="232" column="25" selection-start-line="232" selection-start-column="25" selection-end-line="232" selection-end-column="25" />
+        <state relative-caret-position="72">
+          <caret line="226" column="46" lean-forward="true" selection-start-line="226" selection-start-column="46" selection-end-line="226" selection-end-column="46" />
           <folding>
             <element signature="e#696#734#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
         </state>
       </provider>
     </entry>
