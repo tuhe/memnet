@@ -225,7 +225,7 @@ def main(unused_argv):
 
     mod_base = "tmp/mnist_convnet_K%i_tw%i"%(Kmnist,tw)
     mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir=mod_base,params={'Kclass' : Kmnist, 'iw' : iw, 'tw' : tw})
+        model_fn=cnn_model_fn, model_dir=mod_base,params={'Kmnist' : Kmnist, 'iw' : iw, 'tw' : tw})
     print("Done!")
 
     # Set up logging for predictions
