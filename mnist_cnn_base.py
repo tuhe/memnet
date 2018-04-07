@@ -145,11 +145,11 @@ def cnn_model_fn(features, labels, mode,params):
     # Input Tensor Shape: [batch_size, 7 * 7 * 64]
     # Output Tensor Shape: [batch_size, 1024]
     dense1 = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu,name="densel1")
-    dense2 = tf.layers.dense(inputs=dense1, units=1024, activation=tf.nn.relu, name="densel2")
+    #dense2 = tf.layers.dense(inputs=dense1, units=1024, activation=tf.nn.relu, name="densel2")
 
     # Add dropout operation; 0.6 probability that element will be kept
     dropout = tf.layers.dropout(
-        inputs=dense2, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
+        inputs=dense1, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
 
     # Logits layer
     # Input Tensor Shape: [batch_size, 1024]
