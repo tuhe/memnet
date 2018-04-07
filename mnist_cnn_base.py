@@ -198,8 +198,6 @@ def main(unused_argv):
     eval_data = mnist.test.images  # Returns np.array
     eval_labels = np.asarray(mnist.test.labels, dtype=np.int32)
 
-
-
     def add_junk(X,y,K) :
         m = eval_data.shape[0] // K
         I = np.random.randint(0, eval_data.shape[0], m)
@@ -212,21 +210,15 @@ def main(unused_argv):
         eval_data,eval_labels = add_junk(train_data, train_labels,K)
         train_data, train_labels = add_junk(eval_data, eval_labels,K)
 
-    if False :
-        dataset = tf.data.Dataset.from_tensor_slices((eval_data, eval_labels))
-
-        print("Entering cnn_model_fn")
-        cnn_model_fn(None,None, tf.estimator.ModeKeys.TRAIN,dataset)
-
-
-        print("Done")
-
-
 
     mod_base = "tmp/mnist_convnet_K%i_tw%i"%(Kmnist,tw)
+
+
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn, model_dir=mod_base,params={'Kmnist' : Kmnist, 'iw' : iw, 'tw' : tw})
     print("Done!")
+
+
 
     # Set up logging for predictions
     # Log the values in the "Softmax" tensor with label "probabilities"
@@ -242,18 +234,44 @@ def main(unused_argv):
         batch_size=100,
         num_epochs=None,
         shuffle=True)
+
     print("Running train..")
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=60000,
+        steps=20000,
         hooks=[logging_hook])
     print("Done!")
-    # Evaluate the model and print results
+
+    import pickle
+    with open('mnist_classifier', 'wb') as output:
+        pickle.dump(mnist_classifier, output)
+
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": eval_data},
         y=eval_labels,
         num_epochs=1,
         shuffle=False)
+
+    #tf.feature_column.numeric_column("x")
+
+    #feature_spec = tf.feature_column.make_parse_example_spec(numeric_column)
+    #feature_spec = {"x": tf.FixedLenFeature([28*28], tf.float32)}
+    #export_input_fn = tf.estimator.export.build_parsing_serving_input_receiver_fn(feature_spec)
+    #servable_model_dir = "tmp/servingmodel"
+
+
+    def serving_input_fn():
+        inputs = {'x': tf.placeholder(tf.float32, [28 *28])}
+        return tf.estimator.export.ServingInputReceiver(inputs, inputs)
+
+
+    servable_model_path = mnist_classifier.export_savedmodel(export_dir_base="/tmp/iris_model", serving_input_receiver_fn=serving_input_fn)
+
+    adf
+    return
+    mnist_classifier.export_savedmodel('new_base_dir', eval_input_fn)
+    # Evaluate the model and print results
+
     eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
     print(eval_results)
 

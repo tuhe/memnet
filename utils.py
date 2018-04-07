@@ -1,5 +1,23 @@
 import tensorflow as tf
 import math
+import pickle
+import gzip
+import glob
+
+def ensure_resource_file(outfile,gf=None) :
+    base_zp = outfile + ".pklz"
+    if any(glob.glob(base_zp)):
+        print("Loading resources from " + base_zp)
+        with gzip.open(base_zp, 'rb') as output:
+            res = pickle.load(output)
+    else:
+        print("Re-generating resources; later saving to..." + base_zp)
+        if not gf : print("Bad function supplied")
+        res = gf()
+        print("Done!")
+        pickle.dump(res, gzip.open(base_zp, 'wb'))
+
+    return res
 
 def augment(images, labels,
             resize=None,  # (width, height) tuple or None

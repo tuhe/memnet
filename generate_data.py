@@ -5,7 +5,7 @@ import scipy as sp
 from PIL import Image
 ddopts = [[-1, 0], [0, -1], [1, 0], [0, 1]]
 import matplotlib.pyplot as plt
-
+from utils import ensure_resource_file
 
 def arreq_in_list(myarr, list_arrays):
     return next((True for elem in list_arrays if np.array_equal(elem, myarr)), False)
@@ -21,6 +21,7 @@ class Scene :
         self.Ntypes = Ntypes # Number of unique object types.
         self.points = []
         self.query_target = (None,None)
+        self.rendered = None
 
     def add_element(self, xy, type):
         self.points.append( (xy, type ) )
@@ -66,10 +67,8 @@ class Scene :
 
     def render_scene(self,images,pixels):
         #background = Image.new('RGBA', (pixels, pixels), (255, 255, 255, 255))
-
         #plt.imshow(background)
         background = np.zeros([pixels, pixels])
-
         for p in self.points :
             dd = p[1]
             ima = images[dd][ np.random.randint(0, len(images[dd]) )]
@@ -258,30 +257,29 @@ def test1(T=10):
     Mconfusers_anywhere = 1
 
     base = 'data/object_retrieve_%i_%i_T%i'%(Mconfusers_close,Mconfusers_anywhere,T)
-    import pickle
-    base_cp = base + "_scene.pkl"
 
-    if False and any( glob.glob(base_cp) ) :
-        with open(base_cp, 'rb') as output :
-            scenes = pickle.load(output)
+    gf = lambda : generate_scenes_object_retrival(T=T, Ntype=4, side_padding=sp, obj_radius=sp, obj_adjecancy_shift=sp,
+                                    obj_other_shift=sp * 2,
+                                    Mconfusers_close=2, Mconfusers_anywhere=1)
 
-    else :
-        scenes = generate_scenes_object_retrival(T=T, Ntype=4, side_padding=sp, obj_radius=sp, obj_adjecancy_shift=sp,
-                                                 obj_other_shift=sp * 2,
-                                                 Mconfusers_close=2, Mconfusers_anywhere=1)
-        pickle.dump(scenes, open(base_cp, 'wb') )
+    scenes = ensure_resource_file(base + "_scene", gf )
 
-    # load mnist sources
+    def render_scenes(scenes):
+        digits = mnist_split()
+        for i in range(len(scenes)) :
+            scenes[i].rendered = scenes[i].render_scene(digits, 200)
+        return scenes
+    base_rendered = base + "_rendered"
+    scenes = ensure_resource_file(base_rendered, lambda : render_scenes(scenes))
 
-    digits = mnist_split()
-
+    print("Plotting")
     ds = scenes[0]
-    S = ds.render_scene(digits, 200)
     plt.subplot(1,2,1)
-    plt.imshow(S)
+    plt.imshow(ds.rendered)
     plt.subplot(1,2,2)
     ds.plot()
     plt.show()
+    print("All Done!")
 
     return
 
