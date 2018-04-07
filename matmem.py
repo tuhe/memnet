@@ -5,6 +5,8 @@ import tensorflow as tf
 import numpy as np
 import math
 
+from generate_data import test1
+
 tf.reset_default_graph()
 log_dir = 'logdir'
 
@@ -53,7 +55,6 @@ def np2tf(ms,mq,mt):
     return ms, mq, mt
 
 
-from generate_data import test1
 
 #fout = 'data/object_retrieve_2_0_T100.npy'
 fout = test1(1000)
