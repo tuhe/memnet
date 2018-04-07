@@ -20,7 +20,8 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-if os.environ['OS'] == 'Windows_NT' :
+import sys
+if sys.platform == 'win32':
     os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 import numpy as np
