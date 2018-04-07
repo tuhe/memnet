@@ -20,7 +20,8 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+if os.environ['OS'] == 'Windows_NT' :
+    os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 import numpy as np
 import tensorflow as tf
@@ -34,7 +35,7 @@ from utils import augment
 import matplotlib.pyplot as mpl
 
 iw = 28
-tw = 28
+tw = 40
 Kmnist = 11  # max number of classes
 
 def cnn_model_fn(features, labels, mode):
@@ -218,8 +219,10 @@ def main(unused_argv):
 
 
     # Create the Estimator
+
+    mod_base = "tmp/mnist_convnet_K%i_tw%i"%(Kmnist,tw)
     mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir="tmp/mnist_convnet_model")
+        model_fn=cnn_model_fn, model_dir=mod_base)
     print("Done!")
 
     # Set up logging for predictions
@@ -231,7 +234,7 @@ def main(unused_argv):
     # Train the model
     print("Entering train mode...")
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={"x": train_data}, #, 'im_res' : 28, 'nw' : nw},
+        x={"x": train_data},
         y=train_labels,
         batch_size=100,
         num_epochs=None,

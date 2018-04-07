@@ -2,37 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58d10001-82e3-41f9-89ef-bb3f3d5416da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/MNIST-data/t10k-images-idx3-ubyte.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MNIST-data/t10k-labels-idx1-ubyte.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MNIST-data/train-images-idx3-ubyte.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MNIST-data/train-labels-idx1-ubyte.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/object_retrieve_2_1_T1000_scene.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/object_retrieve_2_1_T10_scene.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/checkpoint" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/eval/events.out.tfevents.1523084763.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523078818.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523078953.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523079163.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523080188.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523080401.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/events.out.tfevents.1523122523.COMP-NBTUHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/graph.pbtxt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-10946.data-00000-of-00001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-10946.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-10946.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-13603.data-00000-of-00001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-13603.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-13603.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-16351.data-00000-of-00001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-16351.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-16351.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-19211.data-00000-of-00001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-19211.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-19211.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-20001.data-00000-of-00001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-20001.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/mnist_convnet_model/model.ckpt-20001.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist_cnn_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_cnn_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
+    <ignored path="logdir/" />
+    <ignored path="MNIST-data/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,8 +55,8 @@
       <file leaf-file-name="mnist_cnn_base.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="67" column="44" lean-forward="true" selection-start-line="67" selection-start-column="44" selection-end-line="67" selection-end-column="44" />
+            <state relative-caret-position="252">
+              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
               <folding>
                 <element signature="e#696#734#0" expanded="true" />
               </folding>
@@ -88,11 +64,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2898">
-              <caret line="139" selection-start-line="139" selection-end-line="139" />
+            <state relative-caret-position="42">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -169,6 +154,7 @@
         <option value="$PROJECT_DIR$/thmatlab.py" />
         <option value="$PROJECT_DIR$/matmem.py" />
         <option value="$PROJECT_DIR$/generate_data.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/mnist_cnn_base.py" />
       </list>
@@ -201,7 +187,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/MNIST-data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.gitignore" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -326,15 +312,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2039" y="63" width="1938" height="1098" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18561608" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18561608" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5002644" side_tool="true" weight="0.42502698" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997356" visible="true" weight="0.43149945" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5002644" side_tool="true" visible="true" weight="0.43149945" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920678" weight="0.43149945" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49920678" weight="0.32901832" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.24271844" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32901832" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4997356" weight="0.32901832" />
       <window_info anchor="bottom" x="-1888" y="194" width="1920" height="921" id="Debug" order="3" type="WINDOWED" weight="0.399137" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -378,16 +365,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/generate_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1302">
-          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2478">
@@ -734,16 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2898">
-          <caret line="139" selection-start-line="139" selection-end-line="139" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generate_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -764,10 +731,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="67" column="44" lean-forward="true" selection-start-line="67" selection-start-column="44" selection-end-line="67" selection-end-column="44" />
+        <state relative-caret-position="252">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
           <folding>
             <element signature="e#696#734#0" expanded="true" />
           </folding>

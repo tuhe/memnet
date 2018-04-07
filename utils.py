@@ -32,33 +32,27 @@ def augment(images, labels,
         images = tf.pad(images, paddings, "CONSTANT")
 
     if class_translation_minmax is not None :
-        #print("Doing translation work...")
         dts = tf.gather(class_translation_minmax, labels)
 
         shp = tf.shape(images)
         batch_size, height, width = shp[0], shp[1], shp[2]
-        #RU = tf.random_uniform( [batch_size] )
 
         neg_coin = tf.cast( tf.less(tf.random_uniform([batch_size,2], 0, 1.0), 0.5), dtype=tf.float32)
         neg_coin = tf.add(tf.multiply(neg_coin,tf.constant(2.) ),tf.constant(-1.) )
 
-        pt_size_U = tf.random_uniform( [batch_size,2] )
-
+        pt_size_unif = tf.random_uniform( [batch_size,2] )
 
         coin_dims = tf.less(tf.random_uniform([batch_size], 0, 1.0), 0.5)
 
         b = tf.reduce_max(dts, reduction_indices=[1])
         a = tf.reduce_min(dts, reduction_indices=[1])
 
-        #a = tf.reshape(a, [batch_size, 1])
         ar = tf.where(coin_dims,a,tf.scalar_mul( tf.constant( 0. ),a ) )
         ar = tf.reshape(ar, [batch_size,1])
         ar = tf.concat([ar, tf.subtract( tf.reshape(a, [batch_size,1]) ,ar )], 1)
 
-        m1 = tf.multiply(pt_size_U, tf.reshape( tf.subtract( tf.reshape(b, [batch_size,1]), ar), [batch_size,2]) )
+        m1 = tf.multiply(pt_size_unif, tf.reshape( tf.subtract( tf.reshape(b, [batch_size,1]), ar), [batch_size,2]) )
         RT = tf.multiply( tf.add( m1 , tf.reshape(ar, [batch_size,2])),  neg_coin )
-
-        #RT = tf.multiply( tf.add( a, tf.multiply(  pt_size_U, tf.subtract(b, a)  )  ) , neg_coin)
 
         images = tf.contrib.image.translate(images, RT)
         #return a, b, RT, images
