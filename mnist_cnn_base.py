@@ -21,14 +21,14 @@ from __future__ import print_function
 
 import os
 import sys
+
+WIN = False
 if sys.platform == 'win32':
     os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+    WIN = True
 
 import numpy as np
 import tensorflow as tf
-from generate_data import safepaste
-# import matplotlib as plt
-import matplotlib.pyplot as plt
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -43,7 +43,7 @@ def cnn_model_fn(features, labels, mode,params):
     # Reshape X to 4-D tensor: [batch_size, width, height, channels]
     # MNIST images are 28x28 pixels, and have one color channel
     # input_layer = tf.reshape(features["x"], [-1, 28, 28, 1])
-    iw = params['iw'] # image width (default, i.e. 28)
+    # iw = params['iw'] # image width (default, i.e. 28)
     Kmnist = params['Kmnist'] # Number of classes
     tw = params['tw'] # Total image width
     if isinstance(features, tf.data.Dataset):
@@ -54,7 +54,6 @@ def cnn_model_fn(features, labels, mode,params):
     images = features['x']
 
     if dataset is not None :
-        print("Hacky sacky...")
         dw = 6
         dataset = dataset.batch(dw*dw+1)
         iterator = dataset.make_initializable_iterator()
@@ -66,18 +65,31 @@ def cnn_model_fn(features, labels, mode,params):
         sess.run(iterator.initializer)
         images, labels = iterator.get_next()
 
+    if images.shape[1].value == 28*28:
+        iw = 28
+        pad_size = (tw, tw)
+    else:
+        iw = tw
+        pad_size = None
+
     images = tf.reshape(images,[-1,iw,iw,1])
+    ## make compatible with MNIST in 28 x 28 format.
 
-    class_translation_minmax = []
-    for k in range(Kmnist):
-        dt = [0, (tw - iw)//2 + iw //3 ]
-        if k == Kmnist-1 and Kmnist == 11:
-            dt = [(tw + iw) // 2 - iw // 2, (tw  + iw) // 2]
 
-        class_translation_minmax.append( dt )
-    class_translation_minmax = np.asarray(class_translation_minmax, dtype=np.float32)
 
-    [images, labels,RT, ar] = augment(images, labels, resize=None, pad_to_size=(tw,tw), class_translation_minmax=class_translation_minmax)
+    if mode == tf.estimator.ModeKeys.PREDICT:  # Turn off input perturbation.
+        class_translation_minmax = None
+    else :
+        class_translation_minmax = []
+        for k in range(Kmnist):
+            dt = [0, (tw - iw)//2 + iw //3 ]
+            if k == Kmnist-1 and Kmnist == 11:
+                dt = [(tw + iw) // 2 - iw // 2, (tw  + iw) // 2]
+
+            class_translation_minmax.append( dt )
+        class_translation_minmax = np.asarray(class_translation_minmax, dtype=np.float32)
+
+    [images, labels] = augment(images, labels, resize=None, pad_to_size=pad_size, class_translation_minmax=class_translation_minmax)
 
     if dataset is not None:
         im,la,RTr, arr = sess.run([images,labels, RT, ar])
@@ -86,12 +98,10 @@ def cnn_model_fn(features, labels, mode,params):
             a = im[i].squeeze()
             mpl.imshow(a)
             mpl.title("Class: " + str( la[i]) )
-
         mpl.show()
         print("Show figures done.")
 
     input_layer = images
-    #input_layer = tf.reshape(features["x"], [-1, 28, 28, 1])
 
     # images = tf.placeholder(tf.uint8, shape=(None, None, None)) # add ,3) as last dim for RGB.
     # labels = tf.placeholder(tf.uint64, shape=(None))
@@ -159,9 +169,7 @@ def cnn_model_fn(features, labels, mode,params):
     predictions = {
         # Generate predictions (for PREDICT and EVAL mode)
         "classes": tf.argmax(input=logits, axis=1),
-        ## Add `softmax_tensor` to the graph. It is used for PREDICT and by the
-        ## `logging_hook`.
-        # "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
+        "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
     }
     if mode == tf.estimator.ModeKeys.PREDICT:
         return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
@@ -184,6 +192,16 @@ def cnn_model_fn(features, labels, mode,params):
     return tf.estimator.EstimatorSpec(
         mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
+def get_mnist_estimator(Kmnist,tw) :
+    iw = 28
+    #Kmnist = 11  # max number of classes
+
+    mod_base = "tmp/mnist_convnet_K%i_tw%i" % (Kmnist, tw)
+    mnist_classifier = tf.estimator.Estimator(
+        model_fn=cnn_model_fn, model_dir=mod_base, params={'Kmnist': Kmnist, 'iw': iw, 'tw': tw})
+    print("Done!")
+
+    return mnist_classifier
 
 def main(unused_argv):
     iw = 28
@@ -205,26 +223,32 @@ def main(unused_argv):
         y2 = np.concatenate((y, np.zeros(m)+K), 0).astype(np.int32)
         return X2, y2
 
+    batch_size = 100
+    train_steps = 100000
+    if WIN :
+        #batch_size = 100
+        train_steps = 3
+        train_data = train_data[:1000,:]
+        eval_data = train_data[:1000, :]
+        train_labels = train_labels[:1000]
+        eval_labels = eval_labels[:1000]
+
     K = len(np.unique(eval_labels))
     if Kmnist == 11 :
         eval_data,eval_labels = add_junk(train_data, train_labels,K)
         train_data, train_labels = add_junk(eval_data, eval_labels,K)
 
-
     mod_base = "tmp/mnist_convnet_K%i_tw%i"%(Kmnist,tw)
-
 
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn, model_dir=mod_base,params={'Kmnist' : Kmnist, 'iw' : iw, 'tw' : tw})
     print("Done!")
 
-
-
-    # Set up logging for predictions
-    # Log the values in the "Softmax" tensor with label "probabilities"
-    tensors_to_log = {} #{"probabilities": "softmax_tensor"}
+    tensors_to_log = {}
+    tensors_to_log = {"probabilities": "softmax_tensor"}
     logging_hook = tf.train.LoggingTensorHook(
         tensors=tensors_to_log, every_n_iter=50)
+
 
     # Train the model
     print("Entering train mode...")
@@ -238,43 +262,50 @@ def main(unused_argv):
     print("Running train..")
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=20000,
+        steps=train_steps,
         hooks=[logging_hook])
     print("Done!")
-
-    import pickle
-    with open('mnist_classifier', 'wb') as output:
-        pickle.dump(mnist_classifier, output)
 
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": eval_data},
         y=eval_labels,
         num_epochs=1,
         shuffle=False)
-
-    #tf.feature_column.numeric_column("x")
-
-    #feature_spec = tf.feature_column.make_parse_example_spec(numeric_column)
-    #feature_spec = {"x": tf.FixedLenFeature([28*28], tf.float32)}
-    #export_input_fn = tf.estimator.export.build_parsing_serving_input_receiver_fn(feature_spec)
-    #servable_model_dir = "tmp/servingmodel"
-
-
-    def serving_input_fn():
-        inputs = {'x': tf.placeholder(tf.float32, [28 *28])}
-        return tf.estimator.export.ServingInputReceiver(inputs, inputs)
-
-
-    servable_model_path = mnist_classifier.export_savedmodel(export_dir_base="/tmp/iris_model", serving_input_receiver_fn=serving_input_fn)
-
-    adf
-    return
-    mnist_classifier.export_savedmodel('new_base_dir', eval_input_fn)
-    # Evaluate the model and print results
-
     eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
+
+    predict_input_fn = tf.estimator.inputs.numpy_input_fn(
+        x={"x": eval_data},
+        num_epochs=1,
+        shuffle=False)
+    predict_results = mnist_classifier.predict(input_fn=predict_input_fn)
+
     print(eval_results)
 
+class Mnist_Wrapper() :
+    def __init__(self,Kmnist=11,tw=40):
+        self.mnist_classifier =get_mnist_estimator(Kmnist,tw)
+        #tensors_to_log = {"probabilities": "softmax_tensor"}
+        #logging_hook = tf.train.LoggingTensorHook(
+        #    tensors=tensors_to_log, every_n_iter=50)
+
+        #self.hooks = logging_hook
+
+    def predict(self,eval_data):
+        predict_input_fn = tf.estimator.inputs.numpy_input_fn(
+            x={"x": eval_data},
+            num_epochs=1,
+            shuffle=False)
+        predict_results = self.mnist_classifier.predict(input_fn=predict_input_fn)
+
+        cls = []
+        probs = []
+        for x in predict_results:
+            cls.append(x['classes'])
+            probs.append(x['probabilities'])
+            print(x)
+        cls = np.asarray(cls)
+        probs = np.asarray(probs)
+        return cls, probs
 
 if __name__ == "__main__":
     tf.app.run()

@@ -73,11 +73,6 @@ def augment(images, labels,
         RT = tf.multiply( tf.add( m1 , tf.reshape(ar, [batch_size,2])),  neg_coin )
 
         images = tf.contrib.image.translate(images, RT)
-        #return a, b, RT, images
-
-
-
-    labels = tf.to_float(labels)
 
     with tf.name_scope('augmentation'):
         shp = tf.shape(images)
@@ -143,12 +138,13 @@ def augment(images, labels,
             return tf.concat([values[-1:, ...], values[:-1, ...]], 0)
 
         if mixup > 0:
+            labels = tf.to_float(labels)
             beta = tf.distributions.Beta(mixup, mixup)
             lam = beta.sample(batch_size)
             ll = tf.expand_dims(tf.expand_dims(tf.expand_dims(lam, -1), -1), -1)
             images = ll * images + (1 - ll) * cshift(images)
             labels = lam * labels + (1 - lam) * cshift(labels)
 
+            labels = tf.to_int32(labels)
 
-    labels = tf.to_int32(labels)
-    return images, labels,RT, ar
+    return images, labels
