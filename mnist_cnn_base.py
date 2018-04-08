@@ -248,10 +248,9 @@ def main(unused_argv):
     print("Done!")
 
     tensors_to_log = {}
-    tensors_to_log = {"probabilities": "softmax_tensor"}
+    #tensors_to_log = {"probabilities": "softmax_tensor"}
     logging_hook = tf.train.LoggingTensorHook(
         tensors=tensors_to_log, every_n_iter=50)
-
 
     # Train the model
     print("Entering train mode...")
@@ -287,11 +286,8 @@ def main(unused_argv):
 class Mnist_Wrapper() :
     def __init__(self,Kmnist=11,tw=40):
         self.mnist_classifier =get_mnist_estimator(Kmnist,tw)
-        #tensors_to_log = {"probabilities": "softmax_tensor"}
-        #logging_hook = tf.train.LoggingTensorHook(
-        #    tensors=tensors_to_log, every_n_iter=50)
-
-        #self.hooks = logging_hook
+        self.tw = tw
+        self.K = Kmnist
 
     def predict(self,eval_data):
         predict_input_fn = tf.estimator.inputs.numpy_input_fn(

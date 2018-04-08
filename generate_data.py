@@ -3,9 +3,15 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import scipy as sp
 from PIL import Image
-ddopts = [[-1, 0], [0, -1], [1, 0], [0, 1]]
-import matplotlib.pyplot as plt
+
+from matplotlib import pyplot as plt
+
 from utils import ensure_resource_file
+from mnist_cnn_base import Mnist_Wrapper
+from scene_encoder import scene_add_gridded_encoding
+
+
+ddopts = [[-1, 0], [0, -1], [1, 0], [0, 1]]
 
 def arreq_in_list(myarr, list_arrays):
     return next((True for elem in list_arrays if np.array_equal(elem, myarr)), False)
@@ -251,7 +257,7 @@ def mnist_split() :
     return train_digits
 
 
-def test1(T=10):
+def test1(T=1000):
     sp = 0.05
     Mconfusers_close = 2
     Mconfusers_anywhere = 1
@@ -272,14 +278,34 @@ def test1(T=10):
     base_rendered = base + "_rendered"
     scenes = ensure_resource_file(base_rendered, lambda : render_scenes(scenes))
 
-    print("Plotting")
-    ds = scenes[0]
-    plt.subplot(1,2,1)
-    plt.imshow(ds.rendered)
-    plt.subplot(1,2,2)
-    ds.plot()
+    grid_N = 22
+    base_gridded = base_rendered + "_gridN%i"%grid_N
+    print("Loading nn wrapper...")
+    NNwrapper = Mnist_Wrapper()
+    print("Done!")
+    scenes = ensure_resource_file(base_gridded, lambda: scene_add_gridded_encoding(scenes, NNwrapper, grid_N) )
+
+
+    dx = 3
+    plt.figure(1)
+    plt.clf()
+    sc = scenes[dx]
+
+    plt.imshow(sc.rendered)
+    plt.figure(2)
+    plt.clf()
+    sc.plot()
+    plt.figure(3)
+    plt.clf()
+    for pr in sc.patch_encoding :
+        for patch in pr :
+            xy = patch[1]
+            cl = patch[2]
+            probs = patch[3]
+            if cl != len(probs) - 1:
+                plt.text(xy[0], xy[1], "%i"%cl)
+
     plt.show()
-    print("All Done!")
 
     return
 
