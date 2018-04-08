@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58d10001-82e3-41f9-89ef-bb3f3d5416da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mnist_cnn_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_cnn_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene_encoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/scene_encoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <ignored path="logdir/" />
     <ignored path="MNIST-data/" />
@@ -53,7 +49,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scene_encoder.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="scene_encoder.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scene_encoder.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="470">
@@ -65,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mnist_cnn_base.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mnist_cnn_base.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="298" lean-forward="true" selection-start-line="298" selection-end-line="298" />
+            <state relative-caret-position="575">
+              <caret line="243" column="54" selection-start-line="243" selection-start-column="54" selection-end-line="243" selection-end-column="54" />
               <folding>
                 <element signature="e#696#734#0" expanded="true" />
               </folding>
@@ -80,8 +76,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+            <state relative-caret-position="210">
+              <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -143,8 +139,8 @@
         <option value="$PROJECT_DIR$/generate_data.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/utils.py" />
-        <option value="$PROJECT_DIR$/mnist_cnn_base.py" />
         <option value="$PROJECT_DIR$/scene_encoder.py" />
+        <option value="$PROJECT_DIR$/mnist_cnn_base.py" />
       </list>
     </option>
   </component>
@@ -374,12 +370,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mnist_cnn_base.py</url>
-          <line>281</line>
+          <line>284</line>
           <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mnist_cnn_base.py</url>
-          <line>273</line>
+          <line>276</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -745,13 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1008">
@@ -772,22 +761,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="298" lean-forward="true" selection-start-line="298" selection-end-line="298" />
-          <folding>
-            <element signature="e#696#734#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scene_encoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
           <caret line="41" column="34" lean-forward="true" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mnist_cnn_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="243" column="54" selection-start-line="243" selection-start-column="54" selection-end-line="243" selection-end-column="54" />
+          <folding>
+            <element signature="e#696#734#0" expanded="true" />
           </folding>
         </state>
       </provider>

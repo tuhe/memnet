@@ -196,7 +196,7 @@ def get_mnist_estimator(Kmnist,tw) :
     iw = 28
     #Kmnist = 11  # max number of classes
 
-    mod_base = "tmp/mnist_convnet_K%i_tw%i" % (Kmnist, tw)
+    mod_base = "tfmodels/mnist_convnet_K%i_tw%i" % (Kmnist, tw)
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn, model_dir=mod_base, params={'Kmnist': Kmnist, 'iw': iw, 'tw': tw})
     print("Done!")
@@ -238,7 +238,10 @@ def main(unused_argv):
         eval_data,eval_labels = add_junk(train_data, train_labels,K)
         train_data, train_labels = add_junk(eval_data, eval_labels,K)
 
-    mod_base = "tmp/mnist_convnet_K%i_tw%i"%(Kmnist,tw)
+    model_dir = "tfmodels"
+    if WIN :
+        model_dir = 'tmp'
+    mod_base = "%s/mnist_convnet_K%i_tw%i"%(model_dir,Kmnist,tw)
 
     mnist_classifier = tf.estimator.Estimator(
         model_fn=cnn_model_fn, model_dir=mod_base,params={'Kmnist' : Kmnist, 'iw' : iw, 'tw' : tw})
